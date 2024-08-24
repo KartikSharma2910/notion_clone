@@ -1,0 +1,46 @@
+"use client";
+
+import { cn } from "@/lib/utils";
+import { ChevronLeft } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { ElementRef, useRef, useState } from "react";
+import { useMediaQuery } from "usehooks-ts";
+
+const Navigation = () => {
+  const isMobile = useMediaQuery("(max-width:768px)");
+  const pathname = usePathname();
+
+  const [isResetting, setIsResetting] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(isMobile);
+
+  const isResizingRef = useRef();
+  const sidebarRef = useRef<ElementRef<"aside">>(null);
+  const navbarRef = useRef<ElementRef<"div">>(null);
+
+  return (
+    <aside
+      ref={sidebarRef}
+      className={cn(
+        "group/sidebar h-full bg-secondary overflow-y-auto relative w-60 flex-col z-[99999]",
+        isResetting && "transition-all ease-in-out duration-300",
+        isMobile && "w-0"
+      )}
+    >
+      <div
+        role="button"
+        className="h-6 w-6 text-muted-foreground rounded-sm hover:bg-neutral-300 dark:hover:bg-neutral-600 absolute top-3 right-2 opacity-0 group-hover/sidebar:opacity-100 transition"
+      >
+        <ChevronLeft className="h-6 w-6 cursor-pointer" />
+      </div>
+      <div>
+        <p>Action Icons</p>
+      </div>
+      <div className="mt-4">
+        <p>Documents</p>
+      </div>
+      <div className="opacity-0 group-hover/sidebar:opacity-100 transition cursor-ew-resize absolute h-full w-1 bg-primary/10 right-0 top-0" />
+    </aside>
+  );
+};
+
+export default Navigation;
