@@ -2,12 +2,12 @@
 
 import { api } from "@/convex/_generated/api";
 import { Doc, Id } from "@/convex/_generated/dataModel";
+import { cn } from "@/lib/utils";
 import { useQuery } from "convex/react";
+import { FileIcon } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import Item from "./item";
-import { cn } from "@/lib/utils";
-import { FileIcon } from "lucide-react";
 
 type DocumentListProps = {
   parentDocumentId?: Id<"documents">;
@@ -62,9 +62,7 @@ const DocumentList = ({
           expanded && "last:block",
           level === 0 && "hidden"
         )}
-        style={{
-          paddingLeft: level ? `${level * 12 + 25}px` : "25px",
-        }}
+        style={{ paddingLeft: level ? `${level * 12 + 25}px` : "25px" }}
       >
         No Pages Inside
       </p>
